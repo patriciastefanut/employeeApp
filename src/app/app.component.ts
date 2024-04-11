@@ -1,15 +1,18 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule,FormsModule,HttpClientModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  designationList: any [] = []; 
+  roleList: any [] = []; 
 
   stepsList: any []= [
     { stepName: 'Basic Details', isComplete: false},
@@ -45,7 +48,7 @@ export class AppComponent {
     ermEmpExperiences: [],
   }
   
-  empSkillObj: any = {
+/*  empSkillObj: any = {
       "empSkillId": 0,
       "empId": 0,
       "skill": "string",
@@ -53,8 +56,9 @@ export class AppComponent {
       "lastVersionUsed": "string"
     }
   
-
-  empExpObj: any = {
+*/
+ 
+empExpObj: any = {
       "empExpId": 0,
       "empId": 0,
       "companyName": "string",
@@ -64,8 +68,73 @@ export class AppComponent {
       "projectsWorkedOn": "string"
   }
 
+  constructor(private http: HttpClient) {
+
+  }
+  ngOnInit(): void {
+    this.loadAllEmployees();
+    this.loadDesignations();
+    this.loadRoles();
+  }
+
+  loadAllEmployees() {
+    this.http.get("https://freeapi.gerasim.in/api/EmployeeApp/GetAllEmployee").subscribe((res:any) => {
+      this.employeeList = res.data;
+    })
+  }
+  loadDesignations() {
+    this.http.get("https://freeapi.gerasim.in/api/EmployeeApp/GetAllDesignation").subscribe((res:any)=>{
+      this.designationList = res.data;
+    })
+  }
+
+  loadRoles() {
+    this.http.get("https://freeapi.gerasim.in/api/EmployeeApp/GetAllRoles").subscribe((res:any)=>{
+      this.roleList = res.data;
+    })
+  }
+
   setActiveStep(activeStep: any) {
     this.activeStep= activeStep;
+  }
+
+  addSkills() {
+    const skillObj = {
+      "empSkillId": 0,
+      "empId": 0,
+      "skill": "",
+      "totalYearExp": 0,
+      "lastVersionUsed": ""
+    };
+
+    this.employeeObj.erpEmployeeSkills.unshift(skillObj)
+  }
+
+  addExp() {
+    const expObj = {
+      "empExpId": 0,
+      "empId": 0,
+      "companyName": " ",
+      "startDate": "",
+      "endDate": "",
+      "designation": "",
+      "projectsWorkedOn": ""
+    };
+
+    this.employeeObj.ermEmpExperiences.unshift(expObj)
+  }
+
+  saveEmployee() {
+    debugger;
+    this.http.post("https://freeapi.gerasim.in/api/EmployeeApp/CreateNewEmployee", this.employeeObj).subscribe((res:any)=>{
+      if(res.result) {
+        alert('Employee Created Successfully');
+        this.loadAllEmployees();
+        this.isCreateView = false;
+      } else {
+        alert(res.message)
+      }
+    })
   }
 
 }
