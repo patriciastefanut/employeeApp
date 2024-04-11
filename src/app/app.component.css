@@ -1,7 +1,4 @@
-* {
-    margin: 0;
-    padding: 0;
-  }
+ 
   #progress-bar-container li .step-inner {
     position: absolute;
     width: 100%;
@@ -23,7 +20,7 @@
     margin: auto;
     border: 7px solid #fff;
     border-radius: 50%;
-    margin-top: 40px;
+    margin-top: 47px;
     box-shadow: 0 2px 13px -1px rgba(0, 0, 0, 0.2);
     transition: all ease 0.25s;
   }
@@ -91,14 +88,15 @@
     transform: translateY(15px);
     opacity: 0;
   }
-  
+  hr { 
+    margin: 5px;
+  }
   .section-content.active {
     display: block;
     opacity: 1;
   }
   .progress-wrapper {
-    margin: auto;
-    max-width: 1080px;
+    margin: auto; 
   }
   #progress-bar-container {
     position: relative;
@@ -125,10 +123,14 @@
     transition: all ease 0.3s;
   }
   
-  #progress-bar-container li.active::before,
-  #progress-bar-container li:hover::before {
+  #progress-bar-container li.active::before  {
     border: 2px solid #fff;
     background-color: crimson;
+  }
+ 
+  #progress-bar-container li:hover::before {
+    border: 2px solid #fff;
+    background-color: rgb(15, 160, 58);
   }
   #progress-bar-container li {
     list-style: none;
