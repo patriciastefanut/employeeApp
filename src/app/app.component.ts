@@ -17,7 +17,52 @@ export class AppComponent {
     { stepName: 'Experience', isComplete: false},
   ]
 
-  activeStep: any = this.stepsList[1];
+  activeStep: any = this.stepsList[0];
+
+  employeeObj: any = {
+    "roleId": 0,
+    "userName": " ",
+    "empCode": "",
+    "empId": 0,
+    "empName": "",
+    "empEmailId": "",
+    "empDesignationId": 0,
+    "empContactNo": "",
+    "empAltContactNo": "",
+    "empPersonalEmailId": "",
+    "empExpTotalYear": 0,
+    "empExpTotalMonth": 0,
+    "empCity": "",
+    "empState": "",
+    "empPinCode": "",
+    "empAddress": "",
+    "empPerCity": "",
+    "empPerState": "",
+    "empPerPinCode": "",
+    "empPerAddress": "",
+    "password": "",
+    erpEmployeeSkills: [],
+    ermEmpExperiences: [],
+  }
+  
+  empSkillObj: any = {
+      "empSkillId": 0,
+      "empId": 0,
+      "skill": "string",
+      "totalYearExp": 0,
+      "lastVersionUsed": "string"
+    }
+  
+
+  empExpObj: any = {
+      "empExpId": 0,
+      "empId": 0,
+      "companyName": "string",
+      "startDate": "2024-04-11T16:38:32.716Z",
+      "endDate": "2024-04-11T16:38:32.716Z",
+      "designation": "string",
+      "projectsWorkedOn": "string"
+  }
 
   setActiveStep(activeStep: any) {
     this.activeStep= activeStep;
